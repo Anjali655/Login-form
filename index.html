@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>document</title>
+
+    <style>
+
+      body{
+          margin: 20px;
+          padding: 20px;
+          background-color: rgb(188, 128, 206);
+          background-size: cover;
+          background-repeat: no-repeat;
+      }
+
+      fieldset{
+          height: 550px;
+          
+      }
+      .container{
+          justify-content: center;
+          float:center;
+          margin-left:200px;
+          padding: 0 50px;
+      }
+
+      .form-control{
+          float:center;
+          margin-left:300px;
+          padding: 10px 100px;
+          color:red;
+          font-size:22px;
+          font-weight:bold
+      }
+
+      legend{
+          text-align:center;
+          color:red;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+
+
+    <form action="/" method="POST">
+        
+      <fieldset>
+          
+      <legend><h1>User Data Collector</h1></legend>
+
+      <div class="container">
+          <div style="display:flex;height:50px;align-items:center;margin:30px;color:white;font-size:22px;"><br>
+              <div style="display:block;width:100%;">
+                  <label for="FirstName">First Name</label><br>
+                  <input type="text" style="padding: 5px;width:50%;height:25px;" id="FirstName" value=""><br>
+              </div>
+  
+              <div style="display:block;width:100%;">
+                  <label for="Last Name">Last Name</label><br>
+                  <input type="text" style="padding: 5px;width:50%;height:25px;" id="LastName" value=""><br>
+              </div>
+          </div>
+  
+          <div style="display:flex;height:50px;align-items:center;margin:30px;color:white;font-size:22px;"><br>
+             <div style="display:block;width:100%;">
+                  <label for="Age">Age</label><br>
+                  <select value="age" style="padding:5px;width:30%;height:25px;" id="age"><br>
+                      <option id="lessthan18" value="less than 18">less than 18</option>
+                      <option id="equalto18" value="equal to 18">equal to 18</option>
+                      <option id="greaterthan18" value="greater than 18">greater than 18</option>
+                  </select>
+             </div>
+  
+             <div style="display:block;width:100%;">
+                  <label for="Gender">Gender:  </label><br>
+                  <select style="padding:5px;width:30%;height:25px;" id="gender"><br>
+                      <option id="Male" value="Male">Male</option>
+                      <option id="Female" value="Female">Female</option>
+                  </select>
+             </div>
+  
+              <div style="display:block;width:100%;">
+                  <label for="City" >City</label><br>
+                  <select style="padding:5px;width:30%;height:25px;" id="city"><br>
+                      <option id="Chandigarh" value="Chandigarh">Chandigarh</option>
+                      <option  id="Mumbai" value="Mumbai">Mumbai</option>
+                      <option id="Delhi" value="Delhi">Delhi</option>
+                      <option id="Banglore" value="Banglore">Banglore</option>
+                  </select>
+              </div>
+          </div>
+  
+          <div style="display:flex;height:50px;align-items:center;margin:30px;font-size:22px;"><br>
+              <div style="display:block;width:100%;color:white;">
+                  <label for="Email ID">Email ID</label><br>
+                  <input type="email" placeholder="email" value="EmailID"  id="EmailID" style="padding: 5px;width:50%;height:25px;"><br>
+              </div>
+  
+             <div style="display:block;width:100%;">
+                  <label for="Avatar Upload" style="color:white;">Avatar Upload</label><br>
+                  <input type="file"  value="file" id="file" multiple style="padding: 5px;width:30%;height:25px;"><br>
+             </div>
+          </div>
+  
+          <input class="form-control" type="submit" value="Save">
+      </div>
+          
+      </fieldset>
+  </form>
+  
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("form").submit(function (event) {
+          var formData = {
+            "FirstName": $("#FirstName").val(),
+            "LastName": $("#LastName").val(),
+            "age":$("#age").val(),
+            "gender":$("#gender").val(),
+            "city": $("#city").val(),
+            "EmailID": $("#EmailID").val()
+          };
+          var jsonData = JSON.stringify(formData);
+          console.log(jsonData);
+          
+          $.ajax({
+             url: "http://localhost:3000/",
+             type: "POST",
+             dataType: "json",                  
+             data: jsonData,
+             contentType: "application/json",
+             success: function(response){
+                alert(JSON.stringify(response));
+             },
+             error: function(err){
+                alert(JSON.stringify(err));
+             }
+        });  
+          
+          event.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>
